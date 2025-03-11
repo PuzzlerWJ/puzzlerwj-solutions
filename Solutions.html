@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PuzzlerWJ - Puzzle Box Solutions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            text-align: left;
+            transition: transform 0.3s ease-in-out;
+        }
+        h1, h2 {
+            color: #FFD700;
+            text-align: center;
+        }
+        p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            max-width: 750px;
+            margin: 0 auto 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .card {
+            background: #252525;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 15px;
+            background: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease-in-out;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PuzzlerWJ - Puzzle Box Solutions</h1>
+        <p>Every puzzle box I create is more than just a challenge. It tells a story and carries a small piece of wisdom I hope to share. To me, puzzles are like life, full of surprises and hidden paths waiting to be discovered.</p>
+        <p>Each box has an intended solution, but sometimes the answer appears in unexpected ways. You might solve it by guessing, through trial and error, or by following your intuition. Life works the same way. We search for the right answers, but the true joy comes from the journey and the meaning we find along the way.</p>
+        <p>Even the best explorers need guidance sometimes. If you have tried everything and still feel stuck, this site is here to help.</p>
+        <h2>Available Solutions</h2>
+        <div class="card-container">
+            <div class="card">
+                <img src="ladybug.jpg" alt="Ladybug">
+                <h3>🐞 Ladybug</h3>
+                <a href="ladybug.pdf" class="button">View Solution</a>
+            </div>
+            <div class="card">
+                <img src="skyscraper.jpg" alt="Skyscraper">
+                <h3>🏙 Skyscraper</h3>
+                <a href="skyscraper.pdf" class="button">View Solution</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
