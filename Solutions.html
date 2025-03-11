@@ -9,15 +9,17 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #121212;
+            background: linear-gradient(135deg, #121212, #1e1e1e);
             color: #e0e0e0;
             display: flex;
             justify-content: center;
+            position: relative;
+            overflow-x: hidden;
         }
         .container {
             max-width: 900px;
             margin: 50px auto;
-            background: #1e1e1e;
+            background: rgba(30, 30, 30, 0.95);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
@@ -27,6 +29,7 @@
         h1, h2 {
             color: #FFD700;
             text-align: center;
+            text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
         }
         p {
             color: #ffffff;
@@ -64,10 +67,18 @@
             color: white;
             text-decoration: none;
             border-radius: 5px;
-            transition: background 0.3s ease-in-out;
+            transition: background 0.3s ease-in-out, transform 0.2s;
         }
         .button:hover {
             background: #0056b3;
+            transform: scale(1.1);
+        }
+        .button:active {
+            background: #003f7f;
+        }
+        .loading {
+            pointer-events: none;
+            opacity: 0.7;
         }
         @keyframes fadeInUp {
             from {
@@ -78,6 +89,21 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #FFD700;
+            color: #121212;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+            transition: opacity 0.3s;
+        }
+        .back-to-top:hover {
+            background: #ffc107;
         }
     </style>
 </head>
@@ -91,13 +117,35 @@
         <div class="card-container">
             <div class="card">
                 <h3>Ladybug</h3>
-                <a href="ladybug.pdf" class="button">View</a>
+                <a href="ladybug.pdf" class="button" onclick="showLoading(this)">View</a>
             </div>
             <div class="card">
                 <h3>Skyscraper</h3>
-                <a href="skyscraper.pdf" class="button">View</a>
+                <a href="skyscraper.pdf" class="button" onclick="showLoading(this)">View</a>
             </div>
         </div>
     </div>
+    <button class="back-to-top" onclick="scrollToTop()">▲ Top</button>
+    <script>
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 200) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function showLoading(button) {
+            button.classList.add('loading');
+            button.innerText = 'Loading...';
+            setTimeout(() => {
+                button.classList.remove('loading');
+                button.innerText = 'View';
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
