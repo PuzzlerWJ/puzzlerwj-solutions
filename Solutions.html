@@ -164,7 +164,7 @@
         function checkPassword() {
             const input = document.getElementById("passwordInput").value;
             
-            if (currentFile === "ladybug" && input === "PuzzlerWJ" || "puzzlerwj") {
+            if (currentFile === "ladybug" && (input === "PuzzlerWJ" || input === "puzzlerwj")) {
                 window.location.href = "ladybug.pdf";
             } else if (currentFile === "skyscraper" && input === "777") {
                 window.location.href = "skyscraper.pdf";
