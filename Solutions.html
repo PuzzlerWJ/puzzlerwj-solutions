@@ -20,10 +20,17 @@
             background: rgba(30, 30, 30, 0.95);
             padding: 20px;
             border-radius: 10px;
-            text-align: center;
+            text-align: left;
         }
         h1, h2 {
             color: #FFD700;
+            text-align: center;
+        }
+        p {
+            color: #ffffff;
+            line-height: 1.6;
+            max-width: 750px;
+            margin: 0 auto 20px;
         }
         .card-container {
             display: flex;
@@ -52,8 +59,8 @@
         .button:hover {
             background: #0056b3;
         }
-        
-        /* 密碼輸入彈窗樣式 */
+
+        /* 密碼輸入彈窗 */
         .modal {
             display: none;
             position: fixed;
@@ -96,17 +103,20 @@
             cursor: pointer;
             color: white;
         }
-        .hint {
-            display: none;
+        .password-hint {
             color: #FFD700;
-            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>PuzzlerWJ - Puzzle Box Solutions</h1>
-        <h2>Available Solutions</h2>
+        <p>Every puzzle box I create is more than just a challenge. It tells a story and carries a small piece of wisdom I hope to share. To me, puzzles are like life, full of surprises and hidden paths waiting to be discovered.</p>
+        <p>Each box has an intended solution, but sometimes the answer appears in unexpected ways. You might solve it by guessing, through trial and error, or by following your intuition. Life works the same way. We search for the right answers, but the true joy comes from the journey and the meaning we find along the way.</p>
+        <p>Even the best explorers need guidance sometimes. If you have tried everything and still feel stuck, this site is here to help.</p>
+        <h2>Design Concept <br>&<br>Solutions</h2>
         <div class="card-container">
             <div class="card">
                 <h3>Ladybug</h3>
@@ -124,10 +134,9 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Enter Password</h3>
+            <p id="passwordHint" class="password-hint"></p>
             <input type="password" id="passwordInput" placeholder="Enter password">
             <button onclick="validatePassword()">Submit</button>
-            <button onclick="showHint()">Show Hint</button>
-            <p id="passwordHint" class="hint"></p>
         </div>
     </div>
 
@@ -136,16 +145,15 @@
 
         // 設定不同 PDF 的密碼和提示
         const passwords = {
-            "ladybug.pdf": { password: "PuzzlerWJ", hint: "Who am I?" },
-            "skyscraper.pdf": { password: "777", hint: "What is the answer to the number lock in Ladybug?" }
+            "ladybug.pdf": { password: "lady123", hint: "It's a small red insect with black spots." },
+            "skyscraper.pdf": { password: "sky456", hint: "Tall buildings that reach high into the sky." }
         };
 
         function openModal(pdfFile) {
             currentPDF = pdfFile;
             document.getElementById("passwordModal").style.display = "flex";
             document.getElementById("passwordInput").value = ""; // 清空輸入框
-            document.getElementById("passwordHint").style.display = "none"; // 隱藏提示
-            document.getElementById("passwordHint").innerText = ""; // 清空提示文字
+            document.getElementById("passwordHint").innerText = passwords[currentPDF].hint; // 顯示提示
         }
 
         function closeModal() {
@@ -160,11 +168,6 @@
             } else {
                 alert("Incorrect password. Please try again.");
             }
-        }
-
-        function showHint() {
-            document.getElementById("passwordHint").innerText = passwords[currentPDF].hint;
-            document.getElementById("passwordHint").style.display = "block";
         }
     </script>
 </body>
