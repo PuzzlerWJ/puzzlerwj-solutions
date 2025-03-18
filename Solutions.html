@@ -13,8 +13,6 @@
             color: #e0e0e0;
             display: flex;
             justify-content: center;
-            position: relative;
-            overflow-x: hidden;
         }
         .container {
             max-width: 900px;
@@ -22,22 +20,10 @@
             background: rgba(30, 30, 30, 0.95);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-            text-align: left;
-            transition: transform 0.3s ease-in-out;
+            text-align: center;
         }
         h1, h2 {
             color: #FFD700;
-            text-align: center;
-        }
-        p {
-            color: #ffffff;
-            line-height: 1.6;
-            max-width: 750px;
-            margin: 0 auto 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s forwards;
         }
         .card-container {
             display: flex;
@@ -50,13 +36,8 @@
             background: #252525;
             padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
             width: 250px;
             text-align: center;
-            transition: transform 0.3s ease-in-out;
-        }
-        .card:hover {
-            transform: scale(1.05);
         }
         .button {
             display: block;
@@ -66,84 +47,124 @@
             color: white;
             text-decoration: none;
             border-radius: 5px;
-            transition: background 0.3s ease-in-out, transform 0.2s;
+            cursor: pointer;
         }
         .button:hover {
             background: #0056b3;
-            transform: scale(1.1);
         }
-        .button:active {
-            background: #003f7f;
-        }
-        .loading {
-            pointer-events: none;
-            opacity: 0.7;
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #FFD700;
-            color: #121212;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
+        
+        /* 密碼輸入彈窗樣式 */
+        .modal {
             display: none;
-            transition: opacity 0.3s;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .back-to-top:hover {
-            background: #ffc107;
+        .modal-content {
+            background: #252525;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            position: relative;
+        }
+        .modal-content input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .modal-content button {
+            background: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .modal-content .close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: white;
+        }
+        .hint {
+            display: none;
+            color: #FFD700;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>PuzzlerWJ - Puzzle Box Solutions</h1>
-        <p>Every puzzle box I create is more than just a challenge. It tells a story and carries a small piece of wisdom I hope to share. To me, puzzles are like life, full of surprises and hidden paths waiting to be discovered.</p>
-        <p>Each box has an intended solution, but sometimes the answer appears in unexpected ways. You might solve it by guessing, through trial and error, or by following your intuition. Life works the same way. We search for the right answers, but the true joy comes from the journey and the meaning we find along the way.</p>
-        <p>Even the best explorers need guidance sometimes. If you have tried everything and still feel stuck, this site is here to help.</p>
-        <h2>Design Concept <br>&<br>Solutions</h2>
+        <h2>Available Solutions</h2>
         <div class="card-container">
             <div class="card">
                 <h3>Ladybug</h3>
-                <a href="ladybug.pdf" class="button" onclick="showLoading(this)">View</a>
+                <button class="button" onclick="openModal('ladybug.pdf')">View</button>
             </div>
             <div class="card">
                 <h3>Skyscraper</h3>
-                <a href="skyscraper.pdf" class="button" onclick="showLoading(this)">View</a>
+                <button class="button" onclick="openModal('skyscraper.pdf')">View</button>
             </div>
         </div>
     </div>
-    <button class="back-to-top" onclick="scrollToTop()">▲ Top</button>
+
+    <!-- 密碼輸入彈窗 -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Enter Password</h3>
+            <input type="password" id="passwordInput" placeholder="Enter password">
+            <button onclick="validatePassword()">Submit</button>
+            <button onclick="showHint()">Show Hint</button>
+            <p id="passwordHint" class="hint"></p>
+        </div>
+    </div>
+
     <script>
-        window.addEventListener('scroll', function() {
-            const backToTop = document.querySelector('.back-to-top');
-            if (window.scrollY > 200) {
-                backToTop.style.display = 'block';
-            } else {
-                backToTop.style.display = 'none';
-            }
-        });
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        let currentPDF = "";
+
+        // 設定不同 PDF 的密碼和提示
+        const passwords = {
+            "ladybug.pdf": { password: "PuzzlerWJ", hint: "Who am I?" },
+            "skyscraper.pdf": { password: "777", hint: "What is the answer to the number lock in Ladybug?" }
+        };
+
+        function openModal(pdfFile) {
+            currentPDF = pdfFile;
+            document.getElementById("passwordModal").style.display = "flex";
+            document.getElementById("passwordInput").value = ""; // 清空輸入框
+            document.getElementById("passwordHint").style.display = "none"; // 隱藏提示
+            document.getElementById("passwordHint").innerText = ""; // 清空提示文字
         }
-        function showLoading(button) {
-            button.classList.add('loading');
-            button.innerText = 'Loading...';
-            setTimeout(() => {
-                button.classList.remove('loading');
-                button.innerText = 'View';
-            }, 2000);
+
+        function closeModal() {
+            document.getElementById("passwordModal").style.display = "none";
+        }
+
+        function validatePassword() {
+            const userInput = document.getElementById("passwordInput").value;
+            
+            if (userInput === passwords[currentPDF].password) {
+                window.location.href = currentPDF; // 開啟 PDF
+            } else {
+                alert("Incorrect password. Please try again.");
+            }
+        }
+
+        function showHint() {
+            document.getElementById("passwordHint").innerText = passwords[currentPDF].hint;
+            document.getElementById("passwordHint").style.display = "block";
         }
     </script>
 </body>
