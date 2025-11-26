@@ -3,181 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PuzzlerWJ - Puzzle Box Solutions</title>
+    <title>PuzzlerWJ | Design Concept & Solutions</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #121212, #1e1e1e);
-            color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            background: rgba(30, 30, 30, 0.95);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: left;
-        }
-        h1, h2 {
-            color: #FFD700;
-            text-align: center;
-        }
-        p {
-            color: #ffffff;
-            line-height: 1.6;
-            max-width: 750px;
-            margin: 0 auto 20px;
-        }
-        .card-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .card {
-            background: #252525;
-            padding: 15px;
-            border-radius: 10px;
-            width: 250px;
-            text-align: center;
-        }
-        .button {
-            display: block;
-            margin: 10px auto;
-            padding: 10px 15px;
-            background: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .button:hover {
-            background: #0056b3;
+        h1, h2, h3, .fun-font { font-family: 'Abril Fatface', cursive; }
+        body { font-family: 'Poppins', sans-serif; }
+        
+        /* 背景裝飾點點 */
+        .pattern-dots {
+            background-image: radial-gradient(#fbbf24 2px, transparent 2px);
+            background-size: 30px 30px;
         }
 
-        /* 密碼輸入彈窗 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
+        /* 彈窗動畫 */
+        .modal-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
         }
-        .modal-content {
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            width: 300px;
-        }
-        .modal h3 {
-            color: #FFD700;
-        }
-        .modal input {
-            width: 80%;
-            padding: 8px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-        }
-        .modal button {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            background: #007BFF;
-            color: white;
-            cursor: pointer;
-        }
-        .modal button:hover {
-            background: #0056b3;
-        }
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 20px;
-            cursor: pointer;
-            color: white;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>PuzzlerWJ - Puzzle Box Solutions</h1>
-        <p>Every puzzle box I create is more than just a challenge. It tells a story and carries a small piece of wisdom I hope to share. To me, puzzles are like life, full of surprises and hidden paths waiting to be discovered.</p>
-        <p>Each box has an intended solution, but sometimes the answer appears in unexpected ways. You might solve it by guessing, through trial and error, or by following your intuition. Life works the same way. We search for the right answers, but the true joy comes from the journey and the meaning we find along the way.</p>
-        <p>Even the best explorers need guidance sometimes. If you have tried everything and still feel stuck, this site is here to help.</p>
-        <h2>Design Concept <br>&<br>Solutions</h2>
-        <div class="card-container">
-            <div class="card">
-                <h3>Ladybug</h3>
-                <button class="button" onclick="openModal('ladybug')">View</button>
+<body class="bg-[#FDFBF7] text-indigo-950 flex flex-col min-h-screen relative pattern-dots">
+
+    <!-- Decorative Blobs -->
+    <div class="fixed top-0 left-0 w-64 h-64 bg-amber-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -z-10"></div>
+    <div class="fixed bottom-0 right-0 w-96 h-96 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -z-10"></div>
+
+    <div class="max-w-4xl mx-auto px-6 py-16 md:py-24">
+        
+        <!-- Header Section -->
+        <div class="text-center mb-16">
+            <a href="index.html" class="inline-block mb-6 text-amber-500 hover:text-indigo-900 transition">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Home
+            </a>
+            <h1 class="text-5xl md:text-6xl fun-font mb-8 text-indigo-900 drop-shadow-sm">The Story Behind</h1>
+            
+            <div class="bg-white p-8 rounded-2xl shadow-xl border border-indigo-50 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-amber-400"></div>
+                <p class="text-gray-600 leading-loose text-lg italic relative z-10">
+                    "Every puzzle box I create is more than just a challenge. It tells a story and carries a small piece of wisdom I hope to share. To me, puzzles are like life, full of surprises and hidden paths waiting to be discovered."
+                </p>
             </div>
-            <div class="card">
-                <h3>Skyscraper</h3>
-                <button class="button" onclick="openModal('skyscraper')">View</button>
+            
+            <div class="mt-8 text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                <p class="mb-4">
+                    Each box has an intended solution, but sometimes the answer appears in unexpected ways. You might solve it by guessing, through trial and error, or by following your intuition.
+                </p>
+                <p class="font-semibold text-indigo-900">
+                    Even the best explorers need guidance sometimes. If you're stuck, the keys are below.
+                </p>
+            </div>
+        </div>
+
+        <!-- Solutions Grid -->
+        <h2 class="text-4xl fun-font text-center mb-10 text-indigo-900">Unlock Solutions</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Ladybug Card -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 text-center hover:shadow-2xl hover:-translate-y-2 transition duration-300 flex flex-col items-center">
+                <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mb-6 text-amber-600 text-3xl">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Ladybug</h3>
+                <p class="text-gray-500 mb-8 text-sm">A deceptive little box. Have you found its name yet?</p>
+                <button onclick="openModal('ladybug')" class="mt-auto bg-indigo-900 text-white px-8 py-3 rounded-full font-bold hover:bg-indigo-800 hover:shadow-lg transition w-full">
+                    <i class="fas fa-key mr-2"></i>Unlock PDF
+                </button>
+            </div>
+
+            <!-- Skyscraper Card -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 text-center hover:shadow-2xl hover:-translate-y-2 transition duration-300 flex flex-col items-center">
+                <div class="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mb-6 text-indigo-600 text-3xl">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Skyscraper</h3>
+                <p class="text-gray-500 mb-8 text-sm">Standing tall with secrets. The key lies in the past.</p>
+                <button onclick="openModal('skyscraper')" class="mt-auto bg-indigo-900 text-white px-8 py-3 rounded-full font-bold hover:bg-indigo-800 hover:shadow-lg transition w-full">
+                    <i class="fas fa-key mr-2"></i>Unlock PDF
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- 密碼輸入彈窗 -->
-    <div id="passwordModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h3 id="modalHint"></h3>
-            <input type="password" id="passwordInput" placeholder="Enter answer">
-            <button onclick="checkPassword()">Submit</button>
+    <!-- 密碼輸入彈窗 (Modal) -->
+    <div id="passwordModal" class="fixed inset-0 bg-indigo-900/60 backdrop-blur-sm hidden justify-center items-center z-50 transition-opacity">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm relative mx-4 modal-fade-in border-4 border-amber-400">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-indigo-900 transition text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Icon -->
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mx-auto text-indigo-900 text-2xl">
+                    <i class="fas fa-lock"></i>
+                </div>
+            </div>
+
+            <h3 class="text-2xl fun-font text-indigo-900 text-center mb-2">Secret Question</h3>
+            <p id="modalHint" class="text-gray-500 text-center mb-6 text-sm font-medium italic"></p>
+
+            <div class="space-y-4">
+                <input type="password" id="passwordInput" placeholder="Enter your answer..." 
+                    class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-amber-400 focus:ring-2 focus:ring-amber-200 focus:outline-none transition text-center text-lg tracking-widest text-indigo-900">
+                
+                <button onclick="checkPassword()" class="w-full bg-amber-400 text-indigo-900 font-bold py-3 rounded-lg hover:bg-amber-300 transition shadow-md">
+                    Submit Answer
+                </button>
+            </div>
+            
+            <p id="errorMsg" class="text-red-500 text-center text-xs mt-4 hidden font-bold">
+                <i class="fas fa-exclamation-circle mr-1"></i>Incorrect answer. Try again.
+            </p>
         </div>
     </div>
+
+    <footer class="text-center py-8 text-indigo-300 text-xs">
+        &copy; 2024 PuzzlerWJ. Unlock the Hidden Joy.
+    </footer>
 
     <script>
         let currentFile = "";
+        const modal = document.getElementById("passwordModal");
+        const hint = document.getElementById("modalHint");
+        const input = document.getElementById("passwordInput");
+        const errorMsg = document.getElementById("errorMsg");
 
         function openModal(file) {
             currentFile = file;
-            const modal = document.getElementById("passwordModal");
-            const hint = document.getElementById("modalHint");
+            errorMsg.classList.add("hidden"); // 重置錯誤訊息
+            input.value = ""; // 清空輸入框
 
             if (file === "ladybug") {
-                hint.textContent = "Who am I?";
+                hint.textContent = "Hint: Who am I?";
             } else if (file === "skyscraper") {
-                hint.textContent = "What is the answer to the number lock in Ladybug?";
+                hint.textContent = "Hint: What is the answer to the number lock in Ladybug?";
             }
 
-            modal.style.display = "flex";
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            input.focus();
         }
 
         function closeModal() {
-            document.getElementById("passwordModal").style.display = "none";
-            document.getElementById("passwordInput").value = "";
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
         }
 
         function checkPassword() {
-            const input = document.getElementById("passwordInput").value;
-            //It looks like you have some basic web knowledge and have successfully discovered the password.
-            //It's time to support my puzzle box! After all, it can't just have answers found like this!
-            if (currentFile === "ladybug" && (input === "PuzzlerWJ" || input === "puzzlerwj")) {
+            const val = input.value.trim();
+            // 邏輯保持不變
+            if (currentFile === "ladybug" && (val === "PuzzlerWJ" || val === "puzzlerwj")) {
                 window.location.href = "ladybug.pdf";
-            } else if (currentFile === "skyscraper" && input === "777") {
+            } else if (currentFile === "skyscraper" && val === "777") {
                 window.location.href = "skyscraper.pdf";
             } else {
-                alert("Incorrect answer.");
+                // 顯示錯誤訊息而不適用 alert，體驗更好
+                errorMsg.classList.remove("hidden");
+                input.classList.add("border-red-500");
+                
+                // 震動效果 (選用)
+                input.animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-5px)' },
+                    { transform: 'translateX(5px)' },
+                    { transform: 'translateX(0)' }
+                ], { duration: 300 });
             }
-
-            closeModal();
         }
 
+        // 支援 Enter 鍵送出
+        input.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+
+        // 點擊彈窗外部關閉
         window.onclick = function(event) {
-            const modal = document.getElementById("passwordModal");
             if (event.target === modal) {
                 closeModal();
             }
