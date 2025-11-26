@@ -27,11 +27,12 @@
         }
 
         /* 彈窗動畫 */
-        .modal-fade-in {
-            animation: fadeIn 0.3s ease-out forwards;
+        .modal-content {
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: scale(0.9);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
+        @keyframes popIn {
             to { opacity: 1; transform: scale(1); }
         }
     </style>
@@ -46,7 +47,6 @@
         
         <!-- Header Section -->
         <div class="text-center mb-16">
-            <!-- ✅ 修改處：已更新連結網址 -->
             <a href="https://puzzlerwj.github.io/shop/" class="inline-block mb-6 text-amber-500 hover:text-indigo-900 transition">
                 <i class="fas fa-arrow-left mr-2"></i>Back to Home
             </a>
@@ -80,7 +80,8 @@
                 </div>
                 <h3 class="text-2xl font-bold mb-3">Ladybug</h3>
                 <p class="text-gray-500 mb-8 text-sm">A deceptive little box. Have you found its name yet?</p>
-                <button onclick="openModal('ladybug')" class="mt-auto bg-indigo-900 text-white px-8 py-3 rounded-full font-bold hover:bg-indigo-800 hover:shadow-lg transition w-full">
+                <!-- 按鈕：直接呼叫 JS -->
+                <button type="button" onclick="openModal('ladybug')" class="mt-auto bg-indigo-900 text-white px-8 py-3 rounded-full font-bold hover:bg-indigo-800 hover:shadow-lg transition w-full cursor-pointer z-10">
                     <i class="fas fa-key mr-2"></i>Unlock PDF
                 </button>
             </div>
@@ -92,7 +93,8 @@
                 </div>
                 <h3 class="text-2xl font-bold mb-3">Skyscraper</h3>
                 <p class="text-gray-500 mb-8 text-sm">Standing tall with secrets. The key lies in the past.</p>
-                <button onclick="openModal('skyscraper')" class="mt-auto bg-indigo-900 text-white px-8 py-3 rounded-full font-bold hover:bg-indigo-800 hover:shadow-lg transition w-full">
+                <!-- 按鈕：直接呼叫 JS -->
+                <button type="button" onclick="openModal('skyscraper')" class="mt-auto bg-indigo-900 text-white px-8 py-3 rounded-full font-bold hover:bg-indigo-800 hover:shadow-lg transition w-full cursor-pointer z-10">
                     <i class="fas fa-key mr-2"></i>Unlock PDF
                 </button>
             </div>
@@ -100,8 +102,9 @@
     </div>
 
     <!-- 密碼輸入彈窗 (Modal) -->
-    <div id="passwordModal" class="fixed inset-0 bg-indigo-900/60 backdrop-blur-sm hidden justify-center items-center z-50 transition-opacity">
-        <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm relative mx-4 modal-fade-in border-4 border-amber-400">
+    <!-- 預設 style="display: none" 確保它一開始一定是隱藏的 -->
+    <div id="passwordModal" style="display: none;" class="fixed inset-0 bg-indigo-900/60 backdrop-blur-sm justify-center items-center z-[100]">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm relative mx-4 border-4 border-amber-400 modal-content">
             <!-- Close Button -->
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-indigo-900 transition text-xl">
                 <i class="fas fa-times"></i>
@@ -127,4 +130,98 @@
             </div>
             
             <p id="errorMsg" class="text-red-500 text-center text-xs mt-4 hidden font-bold">
-                <i class="fas fa-exclamation-circle mr-1"></i>Incorrect answer. Tr
+                <i class="fas fa-exclamation-circle mr-1"></i>Incorrect answer. Try again.
+            </p>
+        </div>
+    </div>
+
+    <footer class="text-center py-8 text-indigo-300 text-xs">
+        &copy; 2024 PuzzlerWJ. Unlock the Hidden Joy.
+    </footer>
+
+    <script>
+        let currentFile = "";
+        
+        // 取得 DOM 元素
+        const modal = document.getElementById("passwordModal");
+        const hint = document.getElementById("modalHint");
+        const input = document.getElementById("passwordInput");
+        const errorMsg = document.getElementById("errorMsg");
+
+        // 1. 開啟彈窗
+        function openModal(file) {
+            console.log("Attempting to open modal for:", file); // 除錯訊息
+            currentFile = file;
+            
+            // 重置錯誤與輸入框
+            if(errorMsg) errorMsg.classList.add("hidden");
+            if(input) {
+                input.value = "";
+                input.classList.remove("border-red-500");
+            }
+
+            // 設定提示文字
+            if (file === "ladybug") {
+                hint.textContent = "Hint: Who am I?";
+            } else if (file === "skyscraper") {
+                hint.textContent = "Hint: What is the answer to the number lock in Ladybug?";
+            }
+
+            // 強制顯示彈窗
+            if(modal) {
+                modal.style.display = "flex";
+                if(input) input.focus();
+            } else {
+                console.error("Error: Modal element not found!");
+            }
+        }
+
+        // 2. 關閉彈窗
+        function closeModal() {
+            if(modal) modal.style.display = "none";
+        }
+
+        // 3. 檢查密碼
+        function checkPassword() {
+            const val = input.value.trim();
+            
+            // 邏輯判斷
+            // 請確保您的資料夾內有 ladybug.pdf 和 skyscraper.pdf
+            if (currentFile === "ladybug" && (val === "PuzzlerWJ" || val === "puzzlerwj")) {
+                window.location.href = "ladybug.pdf";
+            } else if (currentFile === "skyscraper" && val === "777") {
+                window.location.href = "skyscraper.pdf";
+            } else {
+                // 錯誤處理
+                if(errorMsg) errorMsg.classList.remove("hidden");
+                if(input) {
+                    input.classList.add("border-red-500");
+                    // 簡單震動動畫
+                    input.animate([
+                        { transform: 'translateX(0)' },
+                        { transform: 'translateX(-5px)' },
+                        { transform: 'translateX(5px)' },
+                        { transform: 'translateX(0)' }
+                    ], { duration: 300 });
+                }
+            }
+        }
+
+        // 支援 Enter 鍵送出
+        if(input) {
+            input.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    checkPassword();
+                }
+            });
+        }
+
+        // 點擊彈窗外部關閉
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
