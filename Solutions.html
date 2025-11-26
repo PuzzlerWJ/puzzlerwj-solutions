@@ -46,7 +46,8 @@
         
         <!-- Header Section -->
         <div class="text-center mb-16">
-            <a href="index.html" class="inline-block mb-6 text-amber-500 hover:text-indigo-900 transition">
+            <!-- ✅ 修改處：已更新連結網址 -->
+            <a href="https://puzzlerwj.github.io/shop/" class="inline-block mb-6 text-amber-500 hover:text-indigo-900 transition">
                 <i class="fas fa-arrow-left mr-2"></i>Back to Home
             </a>
             <h1 class="text-5xl md:text-6xl fun-font mb-8 text-indigo-900 drop-shadow-sm">The Story Behind</h1>
@@ -126,78 +127,4 @@
             </div>
             
             <p id="errorMsg" class="text-red-500 text-center text-xs mt-4 hidden font-bold">
-                <i class="fas fa-exclamation-circle mr-1"></i>Incorrect answer. Try again.
-            </p>
-        </div>
-    </div>
-
-    <footer class="text-center py-8 text-indigo-300 text-xs">
-        &copy; 2024 PuzzlerWJ. Unlock the Hidden Joy.
-    </footer>
-
-    <script>
-        let currentFile = "";
-        const modal = document.getElementById("passwordModal");
-        const hint = document.getElementById("modalHint");
-        const input = document.getElementById("passwordInput");
-        const errorMsg = document.getElementById("errorMsg");
-
-        function openModal(file) {
-            currentFile = file;
-            errorMsg.classList.add("hidden"); // 重置錯誤訊息
-            input.value = ""; // 清空輸入框
-
-            if (file === "ladybug") {
-                hint.textContent = "Hint: Who am I?";
-            } else if (file === "skyscraper") {
-                hint.textContent = "Hint: What is the answer to the number lock in Ladybug?";
-            }
-
-            modal.classList.remove("hidden");
-            modal.classList.add("flex");
-            input.focus();
-        }
-
-        function closeModal() {
-            modal.classList.add("hidden");
-            modal.classList.remove("flex");
-        }
-
-        function checkPassword() {
-            const val = input.value.trim();
-            // 邏輯保持不變
-            if (currentFile === "ladybug" && (val === "PuzzlerWJ" || val === "puzzlerwj")) {
-                window.location.href = "ladybug.pdf";
-            } else if (currentFile === "skyscraper" && val === "777") {
-                window.location.href = "skyscraper.pdf";
-            } else {
-                // 顯示錯誤訊息而不適用 alert，體驗更好
-                errorMsg.classList.remove("hidden");
-                input.classList.add("border-red-500");
-                
-                // 震動效果 (選用)
-                input.animate([
-                    { transform: 'translateX(0)' },
-                    { transform: 'translateX(-5px)' },
-                    { transform: 'translateX(5px)' },
-                    { transform: 'translateX(0)' }
-                ], { duration: 300 });
-            }
-        }
-
-        // 支援 Enter 鍵送出
-        input.addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                checkPassword();
-            }
-        });
-
-        // 點擊彈窗外部關閉
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-    </script>
-</body>
-</html>
+                <i class="fas fa-exclamation-circle mr-1"></i>Incorrect answer. Tr
